@@ -1,0 +1,1 @@
+registry server: cr.yandex/crpc7dibg7j7hj6pa0qa/dds_service 
