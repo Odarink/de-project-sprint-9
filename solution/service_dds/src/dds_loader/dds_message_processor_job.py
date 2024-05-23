@@ -39,17 +39,7 @@ class DdsMessageProcessor :
                 restaurant_id = msg["payload"]["restaurant"]['id']
                 restaurant_name = msg["payload"]["restaurant"]['name']
                 products_list = msg["payload"]["products"]
-                for product in products_list :
-                    self._dds_repository.h_products_insert(product_id=product['id'],
-                                                           load_dt=datetime.now(),
-                                                           load_src='kafka')
-                    self._dds_repository.h_category_insert(category_name=product['category'],
-                                                           load_dt=datetime.now(),
-                                                           load_src='kafka')
-                    self._dds_repository.l_order_product(order_id=order_id,
-                                                         product_id=product['id'],
-                                                         load_dt=datetime.now(),
-                                                         load_src='kafka')
+
                 self._dds_repository.h_users_insert(user_id=user_id,
                                                     load_dt=datetime.now(),
                                                     load_src='kafka')
@@ -60,6 +50,56 @@ class DdsMessageProcessor :
                 self._dds_repository.h_restaurant_insert(restaurant_id=restaurant_id,
                                                          load_dt=datetime.now(),
                                                          load_src='kafka')
+                for product in products_list:
+                    product_id = product['id']
+                    product_category = product['category']
+                    product_name = product['name']
+
+                    self._dds_repository.h_products_insert(product_id=product_id,
+                                                           load_dt=datetime.now(),
+                                                           load_src='kafka')
+                    self._dds_repository.h_category_insert(category_name=product_category,
+                                                           load_dt=datetime.now(),
+                                                           load_src='kafka')
+                    self._dds_repository.l_order_product(order_id=order_id,
+                                                         product_id=product_id,
+                                                         load_dt=datetime.now(),
+                                                         load_src='kafka')
+                    self._dds_repository.l_product_restaurant(restaurant_id=restaurant_id,
+                                                              product_id=product_id,
+                                                              load_dt=datetime.now(),
+                                                              load_src='kafka')
+                    self._dds_repository.l_product_category(category_name=product_category,
+                                                            product_id=product_id,
+                                                            load_dt=datetime.now(),
+                                                            load_src='kafka')
+                    self._dds_repository.s_product_names(product_id=product_id,
+                                                         product_name=product_name,
+                                                         load_dt=datetime.now(),
+                                                         load_src='kafka')
+
+                self._dds_repository.l_order_user(order_id=order_id,
+                                                  user_id=user_id,
+                                                  load_dt=datetime.now(),
+                                                  load_src='kafka')
+                self._dds_repository.s_user_names(user_id=user_id,
+                                                  user_name=user_name,
+                                                  user_login=user_login,
+                                                  load_dt=datetime.now(),
+                                                  load_src='kafka')
+                self._dds_repository.s_restaurant_names(restaurant_id=restaurant_id,
+                                                        restaurant_name=restaurant_name,
+                                                        load_dt=datetime.now(),
+                                                        load_src='kafka')
+                self._dds_repository.s_order_cost(order_id=order_id,
+                                                  cost=cost,
+                                                  payment=payment,
+                                                  load_dt=datetime.now(),
+                                                  load_src='kafka')
+                self._dds_repository.s_order_status(order_id=order_id,
+                                                    status=status,
+                                                    load_dt=datetime.now(),
+                                                    load_src='kafka')
 
                 self._producer.produce(msg)
                 self._logger.info(f"{datetime.utcnow()}. Message Sent")
