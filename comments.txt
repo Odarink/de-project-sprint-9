@@ -64,6 +64,20 @@ cdm_repository.py (файл со скриптами для внесения да
 что есть только category_name без category_id.
 Только в процессе того как я делал cdm слой я понял что ключи берутся из детального слоя и category_id, product_id, user_id
 Это ключи Хэш из таблиц h_* детального слоя.
+Переработал под новый запрос обе витрины.
+
+### Шаг 6
+И снова эта проблема появилась... значит я не угадал как она сама по себе пофиксилась тогда . . .
+C:\Users\odar\PycharmProjects\de-project-sprint-9\solution>docker build . -t cr.yandex/crpc7dibg7j7hj6pa0qa/cdm_service:v2024-05-24-r1
+[+] Building 0.1s (2/2) FINISHED                                                                         docker:default
+ => [internal] load .dockerignore                                                                                  0.0s
+ => => transferring context: 2B                                                                                    0.0s
+ => [internal] load build definition from Dockerfile                                                               0.0s
+ => => transferring dockerfile: 2B                                                                                 0.0s
+ERROR: failed to solve: failed to read dockerfile: open /var/lib/docker/tmp/buildkit-mount894473057/Dockerfile: no such file or directory
+
+Попытаюсь ее пофиксить, а пока с этим буду разбираться запушу в гит и отправлю на проверку проект. Времени нету особо, так как
+ через неделю уже жосткий дедлайн по проекту на весь курс обучения 0.0
 
 
 
