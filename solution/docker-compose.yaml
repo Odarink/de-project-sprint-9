@@ -34,6 +34,7 @@ services:
   cdm-service:
     build:
       context: ./service_cdm
+      #context: C:/Users/odar/PycharmProjects/de-project-sprint-9/solution/service_cdm
       network: host
     image: cdm_service:local
     container_name: cdm_service_container
