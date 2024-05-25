@@ -1,0 +1,1 @@
+registry server: https://console.yandex.cloud/folders/b1g5q5vccddpbigarnhp/container-registry/registries/crpc7dibg7j7hj6pa0qa/overview/cdm_service/image
